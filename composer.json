@@ -52,5 +52,8 @@
     "symfony": {
       "allow-contrib": "true"
     }
+  },
+  "conflict": {
+    "symfony/symfony": "<7.*"
   }
 }
