@@ -1,8 +1,7 @@
 # AndrewGos Telegram Bot Bundle
 
-[![Latest Version](https://img.shields.io/github/v/release/CiBeRHeMuL/TelegramBotBundle)](https://github.com/CiBeRHeMuL/TelegramBotBundle/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/CiBeRHeMuL/TelegramBotBundle/ci.yml?branch=master)](https://github.com/CiBeRHeMuL/TelegramBotBundle/actions)
+[![Latest Stable Version](https://poser.pugx.org/andrew-gos/telegram-bot-bundle/v/stable)](https://packagist.org/packages/andrew-gos/telegram-bot-bundle)
+[![License](https://poser.pugx.org/andrew-gos/telegram-bot-bundle/license)](https://packagist.org/packages/andrew-gos/telegram-bot-bundle)
 [![PHP Version Require](http://poser.pugx.org/andrew-gos/telegram-bot-bundle/require/php)](https://packagist.org/packages/andrew-gos/telegram-bot-bundle)
 
 An advanced, strictly typed, and feature-rich Symfony bundle for creating Telegram bots, built on top of the powerful `andrew-gos/telegram-bot` library. This bundle fully leverages the Symfony ecosystem to provide a seamless and highly configurable development experience.
