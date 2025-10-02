@@ -54,6 +54,6 @@
     }
   },
   "conflict": {
-    "symfony/symfony": "<7.*"
+    "symfony/symfony": "<7.0"
   }
 }
