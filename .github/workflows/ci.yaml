@@ -42,9 +42,7 @@ jobs:
           # Match the PHP version from your composer.json
           php-version: '8.2'
           # We don't need any specific extensions for linting, so this speeds up setup.
-          extensions:
-            - mbstring
-            - iconv
+          extensions: mbstring, iconv
           # We only need composer for this job.
           tools: composer:v2
         env:
