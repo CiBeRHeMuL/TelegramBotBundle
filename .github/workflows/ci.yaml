@@ -9,56 +9,26 @@
 # -----------------------------------------------------------------------------
 
 name: PHP Code Style Checker
-
-# 🚀 Triggers: When the workflow should run
 on:
-  # Run on all pushes to any branch
   push:
-
-  # Run on all pull requests targeting any branch
   pull_request:
-
 jobs:
-  # 🛡️ The job ID
   php-cs-fixer:
-    # A human-readable name for the job
     name: Run PHP-CS-Fixer
-
-    # The virtual environment to run the job on
     runs-on: ubuntu-latest
-
-    # The sequence of steps to execute
     steps:
-      # 1. Check out the repository code
-      # This step downloads your code into the runner.
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # 2. Set up PHP environment
-      # This uses a popular action to install PHP and necessary tools.
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          # Match the PHP version from your composer.json
           php-version: '8.2'
-          # We don't need any specific extensions for linting, so this speeds up setup.
           extensions: mbstring, iconv
-          # We only need composer for this job.
           tools: composer:v2
         env:
-          # Disable Xdebug for performance gains
           COMPOSER_DISABLE_XDEBUG_WARN: 1
-          # Tell Composer not to ask interactive questions
           COMPOSER_NO_INTERACTION: 1
-
-      # 3. Install Composer dependencies
-      # This installs php-cs-fixer and other dev dependencies.
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
-
-      # 4. Run PHP-CS-Fixer to check the code style
-      # This executes the "php-cs-check" script from your composer.json.
-      # The 'check' command (or --dry-run) will make the step fail if any
-      # files need to be fixed, but it won't change any files.
       - name: Run PHP-CS-Fixer check
         run: composer php-cs-check
