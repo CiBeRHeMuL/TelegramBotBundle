@@ -53,7 +53,7 @@ class AndrewGosTelegramBotExtension extends Extension
             Telegram::class,
         );
 
-        if (is_a($botFactory['class'], TelegramFactory::class)) {
+        if (is_a($botFactory['class'], TelegramFactory::class, true)) {
             if (!array_key_exists('$eventDispatcher', $botConfig['arguments'])) {
                 $botConfig['arguments']['$eventDispatcher'] = new Reference(
                     'event_dispatcher',
