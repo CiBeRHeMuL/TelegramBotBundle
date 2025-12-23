@@ -58,7 +58,7 @@ class WebhookInfoCommand extends AbstractApiBotCommand
                         last_synchronization_error_date: %s
                         max_connections: %s
                         TEXT,
-                    $info->getUrl()->getUrl(),
+                    $info->getUrl()?->getUrl() ?? 'null',
                     $info->getHasCustomCertificate() ? 'yes' : 'no',
                     $info->getPendingUpdateCount(),
                     $info->getAllowedUpdates() !== null
