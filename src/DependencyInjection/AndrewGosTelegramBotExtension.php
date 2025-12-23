@@ -53,10 +53,6 @@ class AndrewGosTelegramBotExtension extends Extension
             Telegram::class,
         );
 
-        if ($container->has($botFactory['class'])) {
-            $botFactory['class'] = new Reference($botFactory['class']);
-        }
-
         if (is_subclass_of($botFactory['class'], TelegramFactory::class)) {
             if (!array_key_exists('$eventDispatcher', $botConfig['arguments']) && $container->has('event_dispatcher')) {
                 $botConfig['arguments']['$eventDispatcher'] = new Reference('event_dispatcher');
@@ -165,13 +161,7 @@ class AndrewGosTelegramBotExtension extends Extension
     ): Reference {
         $class = $config['class'];
         if (str_starts_with($class, '@')) {
-            if ($container->has(substr($class, 1))) {
-                return new Reference(substr($class, 1));
-            } else {
-                throw new InvalidArgumentException(
-                    sprintf('Cannot find service "%s"', $class),
-                );
-            }
+            return new Reference(substr($class, 1));
         }
 
         if ($container->has($config['class'])) {
