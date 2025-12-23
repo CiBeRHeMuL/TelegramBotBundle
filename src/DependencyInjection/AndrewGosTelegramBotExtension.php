@@ -63,6 +63,12 @@ class AndrewGosTelegramBotExtension extends Extension
                     ContainerInterface::NULL_ON_INVALID_REFERENCE,
                 );
             }
+            if (!array_key_exists('$logger', $botFactoryArguments)) {
+                $botFactoryArguments['$logger'] = new Reference(
+                    'logger',
+                    ContainerInterface::IGNORE_ON_INVALID_REFERENCE,
+                );
+            }
             if (!array_key_exists('$throwOnErrorResponse', $botFactoryArguments)) {
                 $botFactoryArguments['$throwOnErrorResponse'] = false;
             }
