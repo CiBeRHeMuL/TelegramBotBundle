@@ -1,11 +1,35 @@
 services:
-  _defaults:
-    autowire: true
-    autoconfigure: true
-    public: false
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
 
-  AndrewGos\TelegramBotBundle\:
-    resource: '../src'
-    exclude:
-      - '../src/DependencyInjection'
-      - '../TelegramBotBundle.php'
+    AndrewGos\TelegramBotBundle\:
+        resource: '../src'
+        exclude:
+            - '../src/DependencyInjection'
+            - '../TelegramBotBundle.php'
+
+    andrew_gos_telegram_bot.checker.any:
+        class: AndrewGos\TelegramBot\Kernel\Checker\AnyChecker
+        public: true
+    AndrewGos\TelegramBot\Kernel\Checker\AnyChecker:
+        alias: andrew_gos_telegram_bot.checker.any
+
+    andrew_gos_telegram_bot.middleware.log:
+        class: AndrewGos\TelegramBot\Kernel\Middleware\LogMiddleware
+        public: true
+    AndrewGos\TelegramBot\Kernel\Middleware\LogMiddleware:
+        alias: andrew_gos_telegram_bot.middleware.log
+
+    andrew_gos_telegram_bot.plugin.log:
+        class: AndrewGos\TelegramBot\Kernel\Plugin\LogPlugin
+        public: true
+    AndrewGos\TelegramBot\Kernel\Plugin\LogPlugin:
+        alias: andrew_gos_telegram_bot.plugin.log
+
+    andrew_gos_telegram_bot.request_handler.log:
+        class: AndrewGos\TelegramBot\Kernel\RequestHandler\LogRequestHandler
+        public: true
+    AndrewGos\TelegramBot\Kernel\RequestHandler\LogRequestHandler:
+        alias: andrew_gos_telegram_bot.request_handler.log
