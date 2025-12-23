@@ -63,7 +63,7 @@ class AndrewGosTelegramBotExtension extends Extension
                     ContainerInterface::NULL_ON_INVALID_REFERENCE,
                 );
             }
-            if (!array_key_exists('$throwOnErrorResponse', $botConfig['arguments'])) {
+            if (!array_key_exists('$throwOnErrorResponse', $botFactoryArguments)) {
                 $botFactoryArguments['$throwOnErrorResponse'] = false;
             }
         }
@@ -82,7 +82,7 @@ class AndrewGosTelegramBotExtension extends Extension
         }
 
         $botService
-            ->setFactory($botFactoryMethod)
+            ->setFactory([$botFactoryMethod['class'], $botFactoryMethod['method']])
             ->setArguments($botFactoryArguments)
             ->setPublic(true);
 
