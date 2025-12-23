@@ -10,8 +10,8 @@ use AndrewGos\TelegramBot\ValueObject\BotToken;
 use AndrewGos\TelegramBotBundle\Storage\BotsStorage;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\Definition;
-use Symfony\Component\DependencyInjection\Exception\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
@@ -54,8 +54,11 @@ class AndrewGosTelegramBotExtension extends Extension
         );
 
         if (is_subclass_of($botFactory['class'], TelegramFactory::class)) {
-            if (!array_key_exists('$eventDispatcher', $botConfig['arguments']) && $container->has('event_dispatcher')) {
-                $botConfig['arguments']['$eventDispatcher'] = new Reference('event_dispatcher');
+            if (!array_key_exists('$eventDispatcher', $botConfig['arguments'])) {
+                $botConfig['arguments']['$eventDispatcher'] = new Reference(
+                    'event_dispatcher',
+                    ContainerInterface::NULL_ON_INVALID_REFERENCE,
+                );
             }
             if (!array_key_exists('$throwOnErrorResponse', $botConfig['arguments'])) {
                 $botConfig['arguments']['$throwOnErrorResponse'] = false;
