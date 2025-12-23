@@ -44,7 +44,10 @@ class AndrewGosTelegramBotExtension extends Extension
 
     private function createBotService(string $botName, array $botConfig, ContainerBuilder $container): Reference
     {
-        $botFactory = $botConfig['factory']['method'];
+        $botFactory = &$botConfig['factory'];
+        $botFactoryMethod = &$botFactory['method'];
+        $botFactory['arguments'] ??= [];
+        $botFactoryArguments = &$botFactory['arguments'];
 
         $botServiceId = "andrew_gos_telegram_bot.bots.$botName";
 
@@ -53,19 +56,19 @@ class AndrewGosTelegramBotExtension extends Extension
             Telegram::class,
         );
 
-        if (is_a($botFactory['class'], TelegramFactory::class, true)) {
-            if (!array_key_exists('$eventDispatcher', $botConfig['arguments'])) {
-                $botConfig['arguments']['$eventDispatcher'] = new Reference(
+        if (is_a($botFactoryMethod['class'], TelegramFactory::class, true)) {
+            if (!array_key_exists('$eventDispatcher', $botFactoryArguments)) {
+                $botFactoryArguments['$eventDispatcher'] = new Reference(
                     'event_dispatcher',
                     ContainerInterface::NULL_ON_INVALID_REFERENCE,
                 );
             }
             if (!array_key_exists('$throwOnErrorResponse', $botConfig['arguments'])) {
-                $botConfig['arguments']['$throwOnErrorResponse'] = false;
+                $botFactoryArguments['$throwOnErrorResponse'] = false;
             }
         }
 
-        foreach ($botConfig['factory']['arguments'] as $name => &$argument) {
+        foreach ($botFactoryArguments as $name => &$argument) {
             if ($name === '$token' && !(is_string($argument) && str_starts_with($argument, '@'))) {
                 $tokenServiceId = "$botServiceId.token.factory.token";
                 $container
@@ -79,8 +82,8 @@ class AndrewGosTelegramBotExtension extends Extension
         }
 
         $botService
-            ->setFactory([$botFactory['class'], $botFactory['method']])
-            ->setArguments($botConfig['factory']['arguments'])
+            ->setFactory($botFactoryMethod)
+            ->setArguments($botFactoryArguments)
             ->setPublic(true);
 
         $botUpdateHandlerServiceId = "$botServiceId.update_handler";
