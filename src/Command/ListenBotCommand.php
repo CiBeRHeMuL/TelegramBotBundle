@@ -52,8 +52,10 @@ class ListenBotCommand extends AbstractBotCommand
     #[AsEventListener(ConsoleSignalEvent::class)]
     public function handleSystemSignal(ConsoleSignalEvent $event): void
     {
-        if (in_array($event->getHandlingSignal(), [SIGINT, SIGTERM, SIGKILL])) {
-            $this->io->info('Stop listening...');
+        if ($event->getCommand() === $this) {
+            if (in_array($event->getHandlingSignal(), [SIGINT, SIGTERM, SIGKILL])) {
+                $this->io->info('Stop listening...');
+            }
         }
     }
 }
