@@ -22,6 +22,12 @@ services:
     AndrewGos\TelegramBot\Kernel\Middleware\LogMiddleware:
         alias: andrew_gos_telegram_bot.middleware.log
 
+    andrew_gos_telegram_bot.middleware.stop_request_propagation:
+        class: AndrewGos\TelegramBot\Kernel\Middleware\StopRequestPropagationMiddleware
+        public: true
+    AndrewGos\TelegramBot\Kernel\Middleware\StopRequestPropagationMiddleware:
+        alias: andrew_gos_telegram_bot.middleware.stop_request_propagation
+
     andrew_gos_telegram_bot.plugin.log:
         class: AndrewGos\TelegramBot\Kernel\Plugin\LogPlugin
         public: true
