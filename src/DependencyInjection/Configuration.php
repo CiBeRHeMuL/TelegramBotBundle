@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
                                         ->end()
                                         ->children()
                                             ->scalarNode('class')->isRequired()->end()
-                                            ->scalarNode('method')->defaultValue('__invoke')->isRequired()->end()
+                                            ->scalarNode('method')->defaultValue('__invoke')->end()
                                         ->end()
                                     ->end()
                                     ->arrayNode('arguments')
