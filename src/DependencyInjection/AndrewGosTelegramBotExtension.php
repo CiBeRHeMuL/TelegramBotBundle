@@ -89,7 +89,7 @@ class AndrewGosTelegramBotExtension extends Extension
 
         $botFactoryClass = $botFactoryMethod['class'];
         if (str_starts_with($botFactoryClass, '@')) {
-            $botFactoryClass = new Reference($botFactoryClass);
+            $botFactoryClass = new Reference(substr($botFactoryClass, 1));
         }
 
         $botService
