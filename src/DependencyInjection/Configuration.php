@@ -96,16 +96,14 @@ class Configuration implements ConfigurationInterface
 
     private function normalizeFactoryMethod(mixed $value): mixed
     {
-        if (mb_strtolower($value) === 'default') {
+        if (is_string($value) && mb_strtolower($value) === 'default') {
             return ['class' => TelegramFactory::class, 'method' => 'getDefaultTelegram'];
-        } elseif (mb_strtolower($value) === mb_strtolower('getUpdates')) {
+        } elseif (is_string($value) && mb_strtolower($value) === mb_strtolower('getUpdates')) {
             return ['class' => TelegramFactory::class, 'method' => 'getGetUpdatesTelegram'];
         } elseif (is_string($value)) {
             return ['class' => $value, 'method' =>  '__invoke'];
-        } else {
-            if (array_is_list($value)) {
-                return ['class' => $value[0], 'method' =>  $value[1] ?? '__invoke'];
-            }
+        } elseif (array_is_list($value)) {
+            return ['class' => $value[0], 'method' =>  $value[1] ?? '__invoke'];
         }
         return $value;
     }
