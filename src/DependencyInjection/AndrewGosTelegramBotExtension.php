@@ -87,8 +87,13 @@ class AndrewGosTelegramBotExtension extends Extension
             }
         }
 
+        $botFactoryClass = $botFactoryMethod['class'];
+        if (str_starts_with($botFactoryClass, '@')) {
+            $botFactoryClass = new Reference($botFactoryClass);
+        }
+
         $botService
-            ->setFactory([$botFactoryMethod['class'], $botFactoryMethod['method']])
+            ->setFactory([$botFactoryClass, $botFactoryMethod['method']])
             ->setArguments($botFactoryArguments)
             ->setPublic(true);
 
